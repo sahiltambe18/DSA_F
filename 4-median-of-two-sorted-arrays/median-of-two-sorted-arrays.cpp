@@ -6,9 +6,9 @@ public:
         int l1 = nums1.size();
         int l2 = nums2.size();
 
-        if(l1>l2){
-            return findMedianSortedArrays(nums2,nums1);
-        }
+        // if(l1>l2){
+        //     return findMedianSortedArrays(nums2,nums1);
+        // }
 
         int t1 = 0 , t2 = 0;
         while(t1<l1  && t2<l2){
