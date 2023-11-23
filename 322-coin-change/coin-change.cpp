@@ -1,29 +1,18 @@
 class Solution {
 public:
-    int make(vector<int>& coins, int amount, map<int,int> &memo){
-        
-        if(memo.find(amount)!=memo.end()){
-            return memo[amount];
-        }
-        if(amount<0) return -1;
-        if(amount==0){
-            return 0;
-        }
-        int minCoins = INT_MAX;
-        for (auto coin : coins) {
-            int res = make(coins, amount - coin, memo);
-            if (res >= 0 && res < minCoins) {
-                minCoins = res + 1; 
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> dp(amount + 1, amount + 1); 
+
+        dp[0] = 0; 
+
+        for (int i = 1; i <= amount; ++i) {
+            for (int coin : coins) {
+                if (coin <= i) {
+                    dp[i] = min(dp[i], dp[i - coin] + 1);
+                }
             }
         }
-        memo[amount] = minCoins!=INT_MAX ? minCoins : -1;
-        return memo[amount];
-    }
 
-    int coinChange(vector<int>& coins, int amount) {
-        if(amount==0) return 0;
-        
-        map<int,int> memo;
-        return make(coins , amount , memo );
+        return dp[amount] > amount ? -1 : dp[amount];
     }
 };
