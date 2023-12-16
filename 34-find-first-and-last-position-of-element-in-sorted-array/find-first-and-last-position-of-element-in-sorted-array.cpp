@@ -2,7 +2,13 @@ class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
         int start = findFirstOccurrence(nums, target);
-        int end = findLastOccurrence(nums, target);
+        int end;
+        if(start==-1){
+        end = findLastOccurrence(nums,0 , target);
+        }
+         else{
+         end = findLastOccurrence(nums,start , target);
+         }
 
         return {start, end};
     }
@@ -29,9 +35,9 @@ private:
         return result;
     }
 
-    int findLastOccurrence(const vector<int>& nums, int target) {
+    int findLastOccurrence(const vector<int>& nums,int left  , int target) {
         int result = -1;
-        int l = 0, r = nums.size() - 1;
+        int l = left, r = nums.size() - 1;
 
         while (l <= r) {
             int mid = l + (r - l) / 2;
