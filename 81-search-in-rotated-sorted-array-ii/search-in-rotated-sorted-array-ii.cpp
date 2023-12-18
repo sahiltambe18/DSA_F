@@ -8,7 +8,7 @@ public:
             else if(nums[mid]==nums[l] && nums[mid]==nums[r]){
                 l++;
                 r--;
-                //continue;
+                continue;
             }
             else if(nums[mid]>=nums[l]){
                 if(target<=nums[mid] && target >=nums[l]){
