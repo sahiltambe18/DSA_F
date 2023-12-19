@@ -3,10 +3,11 @@ class Solution {
         int time = 0;
         for(auto i : piles){
             time += (i+ speed-1) / speed;
+            if(time>h) return false;
         }
         return (time<=h);
     }
-    /// break when time>h
+
 public:
     int minEatingSpeed(vector<int>& piles, int h) {
         sort(piles.begin(),piles.end());
