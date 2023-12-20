@@ -19,7 +19,18 @@ public:
         
         while(l<r){
             int mid = l + (r-l)/2;
-            if(check(weights,days,mid)){
+            int d = 0;
+            int c = 0;
+            for(auto i : weights){
+                 if(c+i<=mid){
+                c+=i;
+            }else{
+                d++;
+                c=i;
+            }
+            }
+            if(c>0) d++;
+            if(d<=days){
                 r = mid;
             }else{
                 l = mid+1;
