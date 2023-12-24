@@ -1,16 +1,19 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        int n = s.size();
-        unordered_map<char, char> mp1,mp2;
-
-        for (int i = 0; i < n; i++) {
-            if(mp1[s[i]] && mp1[s[i]]!=t[i]) return false;
-            if(mp2[t[i]] && mp2[t[i]]!=s[i]) return false;
-            mp1[s[i]] = t[i];
-            mp2[t[i]] = s[i];
+        if (s.length() != t.length()) {
+            return false;
         }
-
+        vector<int> s2t(256, 0), t2s(256, 0);
+        for (int i = 0; i < s.length(); ++i) {
+            if (s2t[s[i]] == 0 && t2s[t[i]] == 0) {
+                s2t[s[i]] = t[i];
+                t2s[t[i]] = s[i];
+            } else if (s2t[s[i]] != t[i]) {
+                
+                return false;
+            }
+        }
         return true;
     }
 };
