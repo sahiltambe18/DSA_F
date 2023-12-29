@@ -10,9 +10,7 @@ class Solution {
 public:
     void deleteNode(ListNode* node) {
         
-        if(!node || !node->next){
-            return;
-        }
+        
 
         ListNode* temp = node->next;
         
