@@ -11,12 +11,12 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        bool count = 0;
+        int count = 0;
         ListNode* temp = head->next;
 
         while(temp){
-            count = !count;
-            if(count){
+            count++;
+            if(count%2){
                 head = head->next;
             }
             temp = temp->next;
