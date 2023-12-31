@@ -9,23 +9,16 @@
  * };
  */
 class Solution {
-    void solve(ListNode* &prev , ListNode* &curr , ListNode* &nxt){
-        if(!curr) return ;
-        nxt = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = nxt;
-        solve(prev , curr , nxt);
-    }
+    
 public:
     ListNode* reverseList(ListNode* head) {
-        if (!head || !head->next) {
+        if(head==NULL || head->next==NULL){
             return head;
         }
-        ListNode* prev = nullptr;
-        ListNode* curr = head;
-        ListNode* nxt = nullptr;
-        solve(prev , curr , nxt);
-        return prev;
+        ListNode* newHead=reverseList(head->next);
+        head->next->next=head;
+        head->next=NULL;
+
+        return newHead;
     }
 };
