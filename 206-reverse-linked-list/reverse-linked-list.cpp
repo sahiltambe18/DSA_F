@@ -9,6 +9,14 @@
  * };
  */
 class Solution {
+    void solve(ListNode* &prev , ListNode* &curr , ListNode* &nxt){
+        if(!curr) return ;
+        nxt = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = nxt;
+        solve(prev , curr , nxt);
+    }
 public:
     ListNode* reverseList(ListNode* head) {
         if (!head || !head->next) {
@@ -17,12 +25,7 @@ public:
         ListNode* prev = nullptr;
         ListNode* curr = head;
         ListNode* nxt = nullptr;
-        while(curr){
-            nxt = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nxt;
-        }
+        solve(prev , curr , nxt);
         return prev;
     }
 };
