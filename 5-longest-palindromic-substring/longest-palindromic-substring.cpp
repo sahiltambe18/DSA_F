@@ -3,27 +3,27 @@ public:
     string longestPalindrome(string s) {
         if (s.empty()) return "";
 
-        int start = 0, end = 0;
+    if (s.size() == 1) return s;
 
-        for (int i = 0; i < s.size(); ++i) {
-            int len1 = maxlen(s, i, i);
-            int len2 = maxlen(s, i, i + 1);
-            int len = max(len1, len2);
+    int min_start = 0, max_len = 1;
 
-            if (len > end - start) {
-                start = i - (len - 1) / 2;
-                end = i + len / 2;
-            }
-        }
-        return s.substr(start, end - start + 1);
+    for (int i = 0; i < s.size();) {
+
+      
+      int j = i, k = i;
+
+      while (k < s.size()-1 && s[k+1] == s[k]) ++k; // Skip duplicate characters.
+
+      i = k+1;
+
+      while (k < s.size()-1 && j > 0 && s[k + 1] == s[j - 1]) { ++k; --j; } // Expand.
+
+      int new_len = k - j + 1;
+
+      if (new_len > max_len) { min_start = j; max_len = new_len; }
+
     }
 
-private:
-    int maxlen(string s, int left, int right) {
-        while (left >= 0 && right < s.size() && s[left] == s[right]) {
-            --left;
-            ++right;
-        }
-        return right - left - 1;
+    return s.substr(min_start, max_len);
     }
 };
