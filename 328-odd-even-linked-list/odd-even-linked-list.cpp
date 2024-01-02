@@ -14,29 +14,16 @@ public:
 
         if(!head || !head->next) return head;
         
-        bool flag = 1;
+        ListNode *odd = head ,  *even = head->next;        
+        ListNode *eh = even ;        
+        while(even && even->next){
+            odd->next = even->next;
+            odd = odd->next;
 
-        ListNode* start = new ListNode(0);
-        ListNode* tail = start;
-        
-        
-        ListNode* nxt = new ListNode(0);
-        ListNode* tail2 = nxt;
-        
-        while(head){
-            if(flag){
-                tail->next = new ListNode(head->val);
-                tail = tail->next;
-            }else{
-                tail2->next = new ListNode(head->val);
-                tail2 = tail2->next;
-            }
-            flag = !flag;
-            head = head->next;
+            even->next = odd->next;
+            even = even->next;
         }
-        tail->next = nxt->next;
-        delete nxt;
-        
-        return start->next;
+        odd->next = eh;
+        return head;
     }
 };
