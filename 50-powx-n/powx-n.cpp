@@ -3,27 +3,19 @@ public:
     
     double myPow(double x, int num) {
         
-        long long n = num;
+        if(num==0) return 1;
+
         double ans = 1;
-        bool flag = 1;
-        if(n<0) flag = 0;
-        n = abs(n);
-
-        while(n>0){
-            if(n%2){
-
-            ans*=x;
-            n--;
-            }else{
-                x = x*x;
-                n = n/2;
-            }
-        }
-
-        if(flag){
-            return ans;
+        if(num%2){
+            ans = x* myPow(x,abs(num)-1);
         }else{
-            return 1.0/ans;
+            ans = myPow(x*x,abs(num)/2);
         }
+
+        if(num>0){
+            return ans;
+        }
+        return 1.0/ans;
+
     }
 };
