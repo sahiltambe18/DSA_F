@@ -1,5 +1,5 @@
 class Solution {
-    void subsets(vector<vector<int>> &ans , vector<int> nums, vector<int> v , int i){
+    void subsets(vector<vector<int>> &ans , vector<int> &nums, vector<int> &v , int i){
         if(i==nums.size()){
             ans.push_back(v);
             return;
