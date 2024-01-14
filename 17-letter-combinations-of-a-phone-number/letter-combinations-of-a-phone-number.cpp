@@ -15,16 +15,10 @@ public:
         vector<string> ans;
         ans.push_back("");
         
-        umap['2'] = "abc" ;
-        umap['3'] = "def" ;
-        umap['4'] = "ghi" ;
-        umap['5'] = "jkl" ;
-        umap['6'] = "mno" ;
-        umap['7'] = "pqrs";
-        umap['8'] = "tuv";
-        umap['9'] = "wxyz";
+        vector<string> v = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        
         for(auto i : digits){
-            ans = bk(ans , umap[i]);
+            ans = bk(ans , v[i-'0']);
         }
         return ans;
     }
