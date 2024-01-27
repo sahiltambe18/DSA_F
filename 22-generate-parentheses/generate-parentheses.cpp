@@ -1,37 +1,22 @@
 class Solution {
-    bool check(string str){
-        stack<char> st;
-        for(auto i : str){
-            if(i=='('){
-                st.push(i);
-            }else{
-                if(st.empty()){
-                    return 0;
-                }
-                else if(i==')'){
-                    st.pop();
-                }else{
-                    return false;
-                }
-            }
-        }
-        return st.empty();
-    }
-    void helper(vector<string> &ans , int n , string str){
-        if(2*n==str.length()){
-            if(check(str)){
-                ans.push_back(str);
-            }
+   
+    void helper(vector<string> &ans , int open , int close , string str){
+        if(open == 0 && close == 0){
+            ans.push_back(str);
             return;
         }
 
-        helper(ans, n , str+"(");
-        helper(ans,n,str+")");
+        if(open > 0){
+            helper(ans , open-1 , close , str+"(");
+        }
+        if(close>0 && open<close){
+            helper(ans , open , close-1 , str+")");
+        }
     }
 public:
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        helper(ans , n,"");
+        helper(ans ,n, n,"");
         return ans;
     }
 };
