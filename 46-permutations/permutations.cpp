@@ -1,14 +1,7 @@
 class Solution {
-    bool allv(vector<bool>& vis){
-        for(auto i : vis){
-            if(!i){
-                return false;
-            }
-        }
-        return true;
-    }
+    
     void backtrack(vector<vector<int>> &ans , vector<int>& nums , vector<int>& v , vector<bool>& vis){
-        if(allv(vis)){
+        if(v.size() == nums.size()){
             ans.push_back(v);
             return ;
         }
