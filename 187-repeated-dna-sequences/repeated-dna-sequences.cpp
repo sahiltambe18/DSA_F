@@ -4,18 +4,15 @@ public:
         if(s.length()<10){
             return {};
         }
-        set<string> st,an;
         vector<string> ans;
+        unordered_map<string,int> ump;
         for(int i = 0 ; i <= s.length()-10;i++){
-            string str = s.substr(i,10);
-            if(st.find(str)!=st.end()){
-                an.insert(str);
-            }else{
-                st.insert(str);
-            }
+            ump[s.substr(i,10)]++;
         }
-        for(auto i : an){
-            ans.push_back(i);
+        for(auto i : ump){
+            if(i.second>1){
+                ans.push_back(i.first);
+            }
         }
         return ans;
     }
