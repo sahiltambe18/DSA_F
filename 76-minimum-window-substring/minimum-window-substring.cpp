@@ -1,44 +1,56 @@
 class Solution {
-    bool allUsed(unordered_map<char,int> &sc , unordered_map<char,int> &tc){
-        for(auto i :tc){
-            
-            if(i.second>sc[i.first]){
-                return false;
-            }
-        }
-        return true;
-    }
 public:
     string minWindow(string s, string t) {
-        if(s.length()<t.length()) return "";
+        string answer;
 
-        unordered_map<char,int> sc , tc;
-        for(int i = 0 ; i < t.size();i++){
-            tc[t[i]]++;
-        }
 
-        int start = 0 , end = 0 , n = s.length();
-        string ans  = "";
+        vector<int> count(58, 0);
+        int unmatched = 0;
 
-        while(start<=end && end<n){
-            
-            sc[s[end]]++;
+        int lowestLength = INT_MAX;
+        int answerStart = 0;
 
-            while(start<=end && sc[s[start]]>=tc[s[start]]){
-
-                string temp = s.substr(start,end-start+1);
-
-                if(allUsed(sc,tc) && (ans.length()>temp.length()||ans=="")){
-                    ans = temp;
-                }
-                if(sc[s[start]]==tc[s[start]]) break;
-
-                sc[s[start]]--;
-                start++;
+        for(char c: t){
+            if(count[c-'A'] == 0){
+                unmatched ++;
             }
-            end++;
+            count[c-'A']++;
         }
-        return ans;
+
+        int j = 0;
+
+        for(int i = 0; i<s.length(); i++){
+            
+            count[s[i]-'A']--;
+
+            if(count[s[i]-'A'] == 0){
+                unmatched--;
+            }
+
+            while(j<=i && unmatched == 0){
+                if(i-j+1 < lowestLength){
+                    answerStart = j;
+                    lowestLength = i-j+1;
+                }
+                count[s[j]-'A']++;
+                if(count[s[j]-'A'] > 0){
+                    unmatched++;
+                }
+                j++;
+
+            }
+
+            //i represents front of window
+            
+            //if unmatched is 0 then it's valid
+            //i can increment j, and increment count of that val.
+            //if the count becomes positive, then unmatched must increase
+        }
+
+        if(lowestLength != INT_MAX){
+            answer = s.substr(answerStart, lowestLength);
+        }
+        return answer;
+        
     }
 };
-
