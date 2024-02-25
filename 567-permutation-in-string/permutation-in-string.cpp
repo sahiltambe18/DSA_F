@@ -1,27 +1,41 @@
 class Solution {
-    
+    bool eq(vector<int> &mp , vector<int> &nmp ){
+        int l = 0 ; 
+        int r = 25;
+        while(l<=r){
+            if(mp[l]!=nmp[l] || mp[r]!=nmp[r]){
+                return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
+    }
 public:
     bool checkInclusion(string s1, string s2) {
-        unordered_map<char,int> mp , nmp;
-        for(auto i : s1){
-            mp[i]++;
+        vector<int> mp(26,0) , nmp(26,0);
+
+        int k = s1.length() , n = s2.length() ;
+        if(k>n) return false;
+        int i = 0;
+
+        for( i ; i < k ; i++){
+            mp[s1[i]-'a']++;
+            nmp[s2[i]-'a']++;
         }
-        nmp = mp;
-        int k = s1.length() , n = s2.length();
-        for(int i = 0 ; i <= n-k;i++){
-            bool flag = true;
-            for(int j = i ; j < i+k ; j++){
-                if(nmp.find(s2[j])!=nmp.end() && nmp[s2[j]]>0){
-                    nmp[s2[j]]--;
-                }else{
-                    flag  = false;
-                    break;
-                }
-            }
-            if(flag){
+
+        // check for eq
+        if(eq(mp,nmp)){
+            return true;
+        }
+        
+        for( i  ; i < n;i++){
+            nmp[s2[i]-'a']++;
+            nmp[s2[i-k]-'a']--;
+            // check eq
+            
+            if(eq(mp,nmp)){
                 return true;
-            }else{
-                nmp = mp;
             }
         }
         return false;
