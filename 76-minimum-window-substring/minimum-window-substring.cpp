@@ -1,3 +1,6 @@
+static auto setup = [] () {ios_base::sync_with_stdio(false);cin.tie(nullptr);return 0;}();
+
+
 class Solution {
 public:
     string minWindow(string s, string t) {
