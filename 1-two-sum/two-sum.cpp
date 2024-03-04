@@ -4,13 +4,10 @@ public:
 {
     unordered_map<int, int> map;
     for(int i = 0 ; i < nums.size() ; i++){
-        int j = nums[i];
-        for(auto x : map){
-            if(j + x.second == target){
-                return { i , x.first};
-            }
+        if(map.find(target-nums[i])!=map.end()){
+            return {i , map[target-nums[i]]};
         }
-        map[i] = j;
+        map[nums[i]] = i;
     }
     return {};
 }
