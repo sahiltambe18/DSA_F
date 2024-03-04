@@ -20,9 +20,7 @@ public:
                 power+=tokens[r];
                 r--;
             }
-            else{
-                break;
-            }
+            
         }
         //mx = max(mx,score);
 
