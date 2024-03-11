@@ -1,19 +1,23 @@
 class Solution {
-public:
-    int jump(vector<int>& nums) {
+ public:
+  int jump(vector<int>& nums) {
+    int ans = 0;
+    int end = 0;
+    int farthest = 0;
 
-        int n = nums.size();
-        vector<int> dp(n, INT_MAX);
-
-        dp[0]=0;
-
-        for(int i = 0 ; i < n ; i++){
-            for(int j = 1 ;  j <= nums[i] && i+j <n;j++){
-                dp[i+j] = min(dp[i+j],dp[i]+1);
-            }
-        }
-
-        return dp[n-1];
-
+    //  BFS.
+    for (int i = 0; i < nums.size() - 1; ++i) {
+      farthest = max(farthest, i + nums[i]);
+      if (farthest >= nums.size() - 1) {
+        ++ans;
+        break;
+      }
+      if (i == end) {   
+        ++ans;           
+        end = farthest;  
+      }
     }
+
+    return ans;
+  }
 };
