@@ -15,9 +15,15 @@ public:
         if(head==NULL || head->next==NULL){
             return head;
         }
-        ListNode* newHead=reverseList(head->next);
-        head->next->next=head;
-        head->next=NULL;
+        ListNode* newHead= nullptr;
+        ListNode* nxt= nullptr;
+
+        while(head){
+            nxt = head->next;
+            head->next = newHead;
+            newHead = head;
+            head = nxt;
+        }
 
         return newHead;
     }
