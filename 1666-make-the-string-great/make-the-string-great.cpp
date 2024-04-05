@@ -1,26 +1,27 @@
 class Solution {
 public:
     string makeGood(string s) {
-        stack<char> st;
+        // stack<char> st;
+        string ans = "";
         for(auto i : s){
-            if(!st.empty() && tolower(st.top())==tolower(i)){
+            if(!ans.empty() && tolower(ans.back())==tolower(i)){
                 // case not ssaame ie. bad
-                if(st.top()!=i){
-                    st.pop();
+                if(ans.back()!=i){
+                    // st.pop();
+                    ans.pop_back();
                 }else{
-                    st.push(i);
+                    ans.push_back(i);
                 }
             }
             else{
-                st.push(i);
+                ans.push_back(i);
             }
         }
-        string ans = "";
 
-        while(!st.empty()){
-            ans = st.top()+ans;
-            st.pop();
-        }
+        // while(!st.empty()){
+        //     ans = st.top()+ans;
+        //     st.pop();
+        // }
         return ans;
     }
 };
