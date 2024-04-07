@@ -1,39 +1,23 @@
-#include <stack>
-#include <string>
-
 class Solution {
 public:
-    bool checkValidString(std::string s) {
-        int opened = 0, closed = 0;
+    bool checkValidString(string s) {
+        stack<char> open, star;
 
-        //  * == (
-        for (char c : s) {
-            if (c == '(' || c == '*') {
-                opened++;
-            } else {
-                closed++;
-            }
-            if (closed > opened) {
-                return false;
+        for(int i=0; i<size(s); i++){
+            if(s[i] == '(') open.push(i);
+            else if(s[i] == '*') star.push(i);
+            else{
+                if(!open.empty()) open.pop();
+                else if(!star.empty()) star.pop();
+                else return false;
             }
         }
 
-        opened = 0;
-        closed = 0;
-
-        // * == )
-        for (int i = s.size() - 1; i >= 0; --i) {
-            char c = s[i];
-            if (c == ')' || c == '*') {
-                closed++;
-            } else {
-                opened++;
-            }
-            if (opened > closed) {
-                return false;
-            }
+        while(!open.empty() && !star.empty() && star.top() > open.top()){
+            open.pop();
+            star.pop();
         }
 
-        return true;
+        return open.empty();
     }
 };
