@@ -10,27 +10,23 @@
  * };
  */
 class Solution {
-    void solve(TreeNode* root , string temp , string &ans){
+    string solve(TreeNode* root , string s ){
+
+
+         if(!root)
+            return char(26+'a')+s;
+
+        if(!root->left && !root->right)
+            return char(root->val+'a')+s;
         
-        char c = 'a'+root->val;
-        temp = c + temp;
-        if(!root->right && !root->left){
-            if( ans=="" || ans>temp){
-                ans = temp;
-            }
-            return ;
-        }
-        if(root->left) {
-            solve(root->left , temp , ans);
-        }
-        if(root->right){
-            solve(root->right , temp , ans);
-        }
+        string left=solve(root->left,char(root->val+'a')+s);
+        string right=solve(root->right,char(root->val+'a')+s);
+        
+        return min(left,right);
     }
 public:
     string smallestFromLeaf(TreeNode* root) {
-        string ans = "";
-        solve(root , "" , ans);
-        return ans;
+        return solve(root , "" );
+        
     }
 };
