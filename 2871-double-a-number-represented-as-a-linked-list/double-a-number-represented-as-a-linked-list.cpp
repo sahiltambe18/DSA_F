@@ -9,19 +9,19 @@
  * };
  */
 class Solution {
-    ListNode* solve(ListNode* head , int &carry){
-        if(!head) return nullptr;
+    void solve(ListNode* head , int &carry){
+        if(!head) return ;
 
-        head->next = solve(head->next , carry);
+        solve(head->next , carry);
         int val = (head->val*2)+carry;
         head->val = val%10;
         carry = val/10;
-        return head;
+        // return head;
     }
 public:
     ListNode* doubleIt(ListNode* head) {
         int carry = 0;
-        head = solve(head , carry);
+        solve(head , carry);
         if(carry>0){
             ListNode* dummy = new ListNode(carry , head);
             return dummy;
