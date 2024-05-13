@@ -1,16 +1,5 @@
 class Solution {
-    int getVal(vector<vector<int>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
-        int ans = 0;
-        for (int i = 0; i < n; i++) {
-            int poww =0;
-            for (int j = m - 1; j >= 0; j-- , poww++) {
-                ans+= grid[i][j]*pow(2,poww);
-            }
-        }
-        return ans;
-    }
+
 
 public:
     int matrixScore(vector<vector<int>>& grid) {
@@ -46,6 +35,15 @@ public:
                 }
             }
         }
-        return getVal(grid);
+        int res = 0;
+         for (int i=0; i <= n - 1; i++) {
+            int num = 0;
+            for (int j=0; j <= m - 1; j++) {
+                if (grid[i][j]) num |= (1<<(m - j - 1));
+            }
+            res += num;
+        }
+
+        return res;
     }
 };
