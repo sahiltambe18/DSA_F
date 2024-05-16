@@ -1,36 +1,3 @@
-// class Solution {
-    
-//     int getFactor(int i , int j , unordered_set<pair<int,int>> &thief){
-//         int minn = INT_MAX;
-
-//         for(auto point : thief){
-//             int dist = abs(point.first-i)+abs(point.second-j);
-//             minn = min(minn , dist);
-//         }
-//         return minn;
-//     }
-// public:
-//     int maximumSafenessFactor(vector<vector<int>>& grid) {
-//         unordered_map<pair<int,int>> mp;
-//         unordered_set<pair<int,int>> thief;
-
-//         int n = grid.size();
-
-//         for(int i = 0 ; i < n ; i++ ){
-//             for(int j = 0 ; j < n ; j++){
-//                 if(grid[i][j]){
-//                     thief.insert({i,j});
-//                 }
-//             }
-//         }
-
-
-
-
-//     }
-// };
-
-
 class Solution {
 public:
     vector<int> roww = {0,0,-1,1};
@@ -60,7 +27,7 @@ public:
                 int newY = y + coll[i];
 
                 if(newX >= 0 && newX < n && newY >= 0 && newY < n && score[newX][newY] > 1 + s) { 
-
+                    // push only when it has min value
                     score[newX][newY] = 1 + s;
                     q.push({newX, newY});
                 }
@@ -69,12 +36,15 @@ public:
     }
 
     int maximumSafenessFactor(vector<vector<int>>& grid) {
-        ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);
+        
         int n = grid.size();
         if(grid[0][0] || grid[n - 1][n - 1]) return 0;
 
         vector<vector<int>> score(n,vector<int>(n,INT_MAX));
+        //get scores
         bfs(grid, score, n);
+
+
         vector<vector<bool>> vis(n, vector<bool>(n, false));
 
         priority_queue<pair<int,pair<int,int>>> pq;
@@ -93,6 +63,7 @@ public:
                 int newY = temp.second + coll[i];
 
                 if(newX >= 0 && newX < n && newY >= 0 && newY < n && !vis[newX][newY]){
+                    // push only when not vis
                     int s = min(safe, score[newX][newY]);
                     pq.push({s, {newX, newY}});
                     vis[newX][newY] = true;
