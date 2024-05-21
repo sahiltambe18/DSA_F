@@ -1,20 +1,19 @@
 class Solution {
-    void subsets(vector<vector<int>> &ans , vector<int> &nums, vector<int> &v , int i){
-        if(i==nums.size()){
-            ans.push_back(v);
+    void bk(vector<vector<int>> &ans, vector<int>& curr, vector<int>& nums , int idx){
+        if(idx==nums.size()){
+            ans.push_back(curr);
             return;
         }
-
-        v.push_back(nums[i]);
-        subsets(ans , nums , v , i+1);
-        v.pop_back();
-        subsets(ans , nums , v , i+1);
+        bk(ans , curr , nums , idx+1);
+        curr.push_back(nums[idx]);
+        bk(ans , curr , nums , idx+1);
+        curr.pop_back();
     }
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>> ans;
-        vector<int> v;
-        subsets(ans , nums, v , 0);
+        vector<int> curr;
+        bk(ans,curr,nums,0);
         return ans;
     }
 };
