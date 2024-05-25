@@ -10,45 +10,42 @@
  * };
  */
 class Solution {
-    int succesor(TreeNode* root){
-        if(!root) return -1;
-
+    int successor(TreeNode* root) {
         TreeNode* temp = root;
-        while(temp->left){
+        while (temp->left) {
             temp = temp->left;
         }
         return temp->val;
     }
 public:
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if(!root) return nullptr;
+        if (!root) return nullptr;
 
-        if(key>root->val){
-            root->right = deleteNode(root->right,key);
-        }else if(key<root->val ){
-            root->left  = deleteNode(root->left , key);
-        }else{ // node found
-
-            // case 1 : leaf node
-            if(!root->left && !root->right){
+        if (key > root->val) {
+            root->right = deleteNode(root->right, key);
+        } else if (key < root->val) {
+            root->left = deleteNode(root->left, key);
+        } else {
+            // Node found
+            if (!root->left && !root->right) {
+                // Case 1: Leaf node
+                delete root;
                 return nullptr;
-            }
-
-            // case 2 : has childs
-
-            //subcases : has only left child
-            if(root->left && !root->right){
-                root = root->left;
-            }else if(root->right && !root->left){
-                root = root->right;
-            }else{
-                // both child present
-                // i.e find inorder succesor of node
-                int target = succesor(root->right);
-                // replace key with succesor
+            } else if (root->left && !root->right) {
+                // Case 2a: Only left child
+                TreeNode* temp = root->left;
+                delete root;
+                return temp;
+            } else if (!root->left && root->right) {
+                // Case 2b: Only right child
+                TreeNode* temp = root->right;
+                delete root;
+                return temp;
+            } else {
+                // Case 3: Both children present
+                int target = successor(root->right);
                 root->val = target;
-                // call to delete succesor 
-                root->right = deleteNode(root->right , target);
+                root->right = deleteNode(root->right, target);
             }
         }
         return root;
