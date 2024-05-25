@@ -8,42 +8,29 @@
  * };
  */
 
+
+
 class Solution {
-    vector<TreeNode*> ans;
-    void solve(TreeNode* root ,TreeNode* p , vector<TreeNode*> &v){
-        if(!root || ans.size()>0) return;
-        if(root == p){
-            v.push_back(root);
-            ans = v;
-            return;
-        }
-        v.push_back(root);
-        solve(root->left,p,v);
-        solve(root->right,p,v);
-        v.pop_back();
-    }
-    bool answer = 0;
-    void inorder(TreeNode* root,TreeNode* q){
-        if(root){
-            if(root==q){
-                answer = true;
-            }
-            inorder(root->left,q);
-            inorder(root->right,q);
-        }
-    }
+    
     public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> v;
-        solve(root , p , v);
-        for(int i = ans.size()-1 ; i>=0 ; i--){
-            TreeNode* temp  = ans[i];
-            inorder(temp,q);
-            if(answer){
-                return temp;
-            }
-        }
-        return root;
+        //lca will be between p ,q 
+        // that means p<lca<q or p>lca>q
         
+        while(1){
+
+            int rootVal = root -> val, pVal = p -> val, qVal = q -> val;
+
+            if(rootVal == pVal || rootVal == qVal){
+                return root;
+            }else if(rootVal < pVal && rootVal < qVal){
+                root = root -> right;
+            }else if(rootVal > pVal && rootVal > qVal){
+                root = root -> left;
+            }else{
+                return root;
+            }
+
+        }
     }
 };
