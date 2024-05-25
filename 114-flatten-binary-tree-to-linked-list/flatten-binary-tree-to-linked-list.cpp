@@ -10,37 +10,27 @@
  * };
  */
 class Solution {
-    void solve(TreeNode* root ,TreeNode* &tail ){
-        if(!root->left && !root->right){
-            tail = root;
-            return ;
-        }
-
-        if(root->left){
-            solve(root->left , tail);
-        }
-
-        TreeNode* right = nullptr;
-        if(root->right){
-            right = root->right;
-        }
-        if(tail){
-            root->right = root->left;
-            tail->right = right;
-        }
-        root->left = nullptr;
-        if(right){
-            tail = nullptr;
-            solve(right , tail);
-        }
-
-    }
 public:
     void flatten(TreeNode* root) {
-        if(!root || (!root->left && !root->right)){
-            return;
+        if(!root) return;
+        stack<TreeNode*> st;
+        st.push(root);
+        while(!st.empty()){
+            TreeNode* curr = st.top();
+            st.pop();
+
+            if(curr->right){
+                st.push(curr->right);
+            }
+            if(curr->left){
+                st.push(curr->left);
+            }
+
+            if(!st.empty()){
+                curr->right = st.top();
+            }
+            curr->left = nullptr;
         }
-        TreeNode* tail = nullptr;
-        solve(root,tail);
+
     }
 };
