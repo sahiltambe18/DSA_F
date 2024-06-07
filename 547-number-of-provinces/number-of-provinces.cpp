@@ -1,22 +1,22 @@
 class Solution {
-    void solve(vector<vector<int>>& isConnected , int x){
+    void solve(vector<vector<int>>& isConnected, vector<bool> &v , int x){
+        v[x]=1;
         for(int i = 0 ; i < isConnected.size() ; i++){
-            if(isConnected[x][i]==1){
-                isConnected[x][i]=2;
-                solve(isConnected , i);
+            if(isConnected[x][i] && !v[i]){
+                solve(isConnected,v,i);
             }
         }
     }
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
         int ans = 0 , n = isConnected.size();
+        vector<bool> v(n,false);
+        
         for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < n ; j++){
-                if(isConnected[i][j]==1){
-                    ans++;
-                    isConnected[i][j]=2;
-                    solve(isConnected , j);
-                }
+            if(!v[i]){    
+                ans++;
+                v[i]=1;
+                solve(isConnected,v , i);
             }
         }
         return ans;
