@@ -1,18 +1,30 @@
 class Solution {
-    void flood(vector<vector<int>>& image , int x , int y , int color , int prev){
-        if(x>=image.size() || y>=image[0].size() || color==image[x][y] ){
-            return;
-        }else if(prev==image[x][y]){
-            image[x][y] = color;
-            flood(image,x+1,y,color,prev);
-            flood(image,x-1,y,color,prev);
-            flood(image,x,y+1,color,prev);
-            flood(image,x,y-1,color,prev);
+    void dfs(vector<vector<int>>& image, int sr, int sc, int color , int prev){
+        if(image[sr][sc]==color || image[sr][sc]!=prev ){
+            return ;
+        }else if(image[sr][sc]==prev){
+
+
+        image[sr][sc] = color;
+
+        if(sr>0){
+            dfs(image , sr-1 , sc , color , prev);
         }
+        if(sr< image.size()-1){
+            dfs(image , sr+1 , sc , color , prev);
+        }
+        if(sc>0){
+            dfs(image , sr , sc-1 , color , prev);
+        }
+        if(sc< image[0].size()-1){
+            dfs(image , sr , sc+1 , color , prev);
+        }
+        }
+
     }
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        flood( image , sr,sc , color , image[sr][sc]);
+        dfs(image , sr , sc , color ,image[sr][sc] );
         return image;
     }
 };
