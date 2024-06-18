@@ -7,11 +7,11 @@ public:
         }
     };
     int maxProfitAssignment(vector<int>& difficulty, vector<int>& profit, vector<int>& worker) {
-        vector<pair<int,int>> v;
         int n = profit.size();
+        vector<pair<int,int>> v(n);
 
         for(int i = 0 ; i < n ; i++){
-            v.push_back({profit[i],difficulty[i]});
+            v[i] = {profit[i],difficulty[i]};
         }
         sort(v.begin(),v.end(), Compare());
 
