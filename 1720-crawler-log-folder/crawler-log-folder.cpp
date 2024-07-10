@@ -1,15 +1,15 @@
 class Solution {
 public:
     int minOperations(vector<string>& logs) {
-        stack<int> st;
+        int n = 0;
         for(auto i : logs){
             if(i=="../"){
-                if(!st.empty()) st.pop();
+                if(n>0) n--;
 
             }else if(i!="./"){
-                st.push(1);
+                n++;
             }
         }
-        return st.size();
+        return n;
     }
 };
