@@ -18,18 +18,17 @@ class Solution {
         head->next = nullptr;
         return ans;
     }
-    int length(ListNode* head){
+    
+public:
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+        vector<ListNode*> ans(k);
         int l = 0;
+        ListNode* t = head;
         while(head){
             head=head->next;
             l++;
         }
-        return l;
-    }
-public:
-    vector<ListNode*> splitListToParts(ListNode* head, int k) {
-        vector<ListNode*> ans(k);
-        int l = length(head);
+        head = t;
         int size = l / k;
         int rem = l%k;
 
