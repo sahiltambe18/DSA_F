@@ -32,12 +32,9 @@ public:
     int swimInWater(vector<vector<int>>& grid) {
         int n = grid.size();
         int l = grid[n-1][n-1] > grid[0][0] ? grid[n-1][n-1] : grid[0][0] ;
-        int r = 0;
-        for(int i = 0 ; i < n ; i++){
-            int mx = *max_element(grid[i].begin() , grid[i].end());
-            r = max(r , mx);
-        }
-        if(r<=l) return l;
+        int r = n*n;
+        
+        // if(r<=l) return l;
 
         while(l<=r){
             int mid =  l + (r-l)/2;
