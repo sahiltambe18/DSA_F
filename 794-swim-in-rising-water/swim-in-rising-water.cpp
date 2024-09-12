@@ -31,7 +31,7 @@ public:
     }
     int swimInWater(vector<vector<int>>& grid) {
         int n = grid.size();
-        int l = grid[n-1][n-1];
+        int l = grid[n-1][n-1] > grid[0][0] ? grid[n-1][n-1] : grid[0][0] ;
         int r = 0;
         for(int i = 0 ; i < n ; i++){
             int mx = *max_element(grid[i].begin() , grid[i].end());
