@@ -1,19 +1,20 @@
 class Solution {
 public:
-    int climbStair(int n, unordered_map<int, int> &map) {
-        if (map.find(n) != map.end()) {
-            return map[n];
-        }
-        if (n <= 1) {
-            return 1;
-        }
-        int result = climbStair(n - 1, map) + climbStair(n - 2, map);
-        map[n] = result;
-        return result;
-    }
-    
     int climbStairs(int n) {
-        unordered_map<int, int> memo;
-        return climbStair(n, memo);
-    }
+        int dp[46];
+        dp[0] = 1;
+        dp[1] = 1;
+        // dp[2] = 2;
+        // dp[3] = 3;
+
+        for(int i = 2 ; i<=n ; i++){
+            dp[i] = dp[i-1]+dp[i-2];
+        }
+
+        return dp[n];
+    }   
 };
+/*
+0   1   2   3   4   5   6   7   8   9
+0   1   2   3   3   4   4
+*/
