@@ -1,7 +1,6 @@
 class Solution {
 public:
     int minSwaps(string s) {
-        // stack<char> st;
         int mx = 0 , swp = 0;
         int open = 0 ;
         int l = s.length()-1;
@@ -15,6 +14,7 @@ public:
                 swp++;
                 s[l] = ']';
                 s[i] = '[';
+                l--;
                 mx = open;
                 open--;
             } 
